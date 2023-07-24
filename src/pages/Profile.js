@@ -47,7 +47,9 @@ function Profile() {
             marginBottom: "2rem",
           }}
         >
+        { user &&
           <PodcastCard title={user.name} displayImage={user.profileImage} />
+        }
         </div>
 
         <h1 style={{ marginBottom: "1rem", marginTop:"0" }}>My Podcasts</h1>
