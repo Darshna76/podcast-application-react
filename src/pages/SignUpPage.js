@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/common/Header";
-import InputComponent from "../components/common/Input";
-import Button from "../components/common/Button";
-import SignupForm from "../components/SignupComponents/SignupForm.js/index.js";
+import SignupForm from "../components/SignupComponents/SignupForm/index.js";
 import LoginForm from "../components/SignupComponents/LoginForm";
 
 function SignUpPage() {
@@ -23,7 +21,7 @@ function SignUpPage() {
             Don't have an account? Click here to signup.
           </p>
         )}
-      </div>
+      </div>KK
     </div>
   );
 }

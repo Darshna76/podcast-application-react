@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./styles.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useAuthState } from "react-firebase-hooks";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
@@ -12,7 +11,7 @@ function Header() {
   const location = useLocation();
   const currentPath = location.pathname;
   const [user] = useAuthState(auth);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     signOut(auth)
@@ -25,14 +24,14 @@ const navigate = useNavigate();
         toast.error(error.message);
       });
   };
-  
-    const logoutButton =
-   <Link to="/logout" className="logout" onClick={handleLogout}>
-    Logout
-  </Link> ;
-  
- 
-  
+
+  const logoutButton =
+    <Link to="/logout" className="logout" onClick={handleLogout}>
+      Logout
+    </Link>;
+
+
+
   return (
     <div className="navbar">
       <div className="gradient"></div>
@@ -58,8 +57,8 @@ const navigate = useNavigate();
         >
           Profile
         </Link>
-        
-        {user && 
+
+        {user &&
           logoutButton}
       </div>
     </div>

@@ -27,7 +27,7 @@ function CreateAnEpisodePage() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    if ((title, desc, audioFile, id)) {
+    if ((title && desc && audioFile && id)) {
       try {
         const audioRef = ref(
           storage,

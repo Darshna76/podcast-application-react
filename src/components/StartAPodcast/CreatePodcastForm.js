@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import InputComponent from "../common/Input";
 import { toast } from "react-toastify";
 import Button from "../common/Button";
@@ -14,8 +14,9 @@ function CreatePodcastForm() {
   const [desc, setDesc] = useState("");
   const [displayImage, setDisplayImage] = useState();
   const [bannerImage, setBannerImage] = useState();
-
   const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -48,6 +49,7 @@ function CreatePodcastForm() {
         };
 
         const docRef = await addDoc(collection(db, "podcasts"), podcastData);
+        navigate(`/podcast/${id}`);
         setTitle("");
         setDesc("");
         setBannerImage(null);

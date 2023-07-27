@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputComponent from "../../common/Input";
 import Button from "../../common/Button";
 import { auth, db, storage } from "../../../firebase";
@@ -77,26 +77,33 @@ function SignupForm() {
         setLoading(false);
       }
     } else {
-      if (!fullName && !email && !password && ! confirmPassword) {
-         toast.error("All fields are required");
+      if(!password || !email || !fullName || !confirmPassword){
+        toast.error(
+          "All Fields Are Mendatory!"
+        );
       }
+     else if (password != confirmPassword) {
+        toast.error(
+          "Please Make Sure your Password and Confirm Password matches!"
+        );
       
-      else if (password != confirmPassword) {
-        toast.error(
-          "Please Make Sure your password and Confirm Password matches!"
-        );
       } else if (password.length < 6) {
-        toast.error(
-          "Please Make Sure your password is more than 6 digits long!"
-        );
+        toast.error("Please Make Sure your Password is more than 6 digits");
       }
       setLoading(false);
       // throw an error
     }
   };
-  const profileImageHandle = (file) =>{
-   setProfileImage(file)
-  }
+  
+  
+  const profileImageHandle = (file) => {
+      setProfileImage(file);
+  
+}
+
+
+  
+ 
 
   return (
     <>

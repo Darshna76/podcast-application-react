@@ -20,9 +20,12 @@
 }
 
 .label-input {
-  color: var(--purple-grey);
+  color:  var(--purple-grey);
+  border: 2px dashed var(--purple-grey);
+  text-align: center;
 }
 
 .active {
-  border-color: var(--white);
+  border-color: var(--white); ;
+  
 }
