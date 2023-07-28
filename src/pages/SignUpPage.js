@@ -21,7 +21,7 @@ function SignUpPage() {
             Don't have an account? Click here to signup.
           </p>
         )}
-      </div>KK
+      </div>
     </div>
   );
 }

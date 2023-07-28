@@ -2,13 +2,29 @@ import React, { useRef, useState, useEffect } from "react";
 import "./styles.css";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
-function AudioPlayer({ audioSrc, image }) {
+function AudioPlayer({ audioSrc, image, episodeTitle }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMute, setIsMute] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
   const audioRef = useRef();
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("ended", handleEnded);
+
+    setDuration(0);
+    setCurrentTime(0);
+    audioRef.current.currentTime = 0;
+    return () => {
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [audioSrc]);
 
   const handleDuration = (e) => {
     setCurrentTime(e.target.value);
@@ -61,6 +77,8 @@ function AudioPlayer({ audioSrc, image }) {
 
   const handleLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
+    audioRef.current.play();
+    setIsPlaying(true);
   };
 
   const handleEnded = () => {
@@ -88,11 +106,14 @@ function AudioPlayer({ audioSrc, image }) {
 
   return (
     <div className="custom-audio-player">
-      <img src={image} className="display-image-player" />
+      <img src={image} className={`display-image-player ${isPlaying ? "" : "paused"}`} />
+      <p>{episodeTitle}</p>
       <audio ref={audioRef} src={audioSrc} />
       <p className="audio-btn" onClick={togglePlay}>
         {isPlaying ? <FaPause /> : <FaPlay />}
       </p>
+     
+
       <div className="duration-flex">
         <p>{formatTime(currentTime)}</p>
         <input
@@ -105,6 +126,8 @@ function AudioPlayer({ audioSrc, image }) {
         />
         <p>-{formatTime(duration - currentTime)}</p>
       </div>
+     
+      
       <p className="audio-btn" onClick={toggleMute}>
         {!isMute ? <FaVolumeUp /> : <FaVolumeMute />}
       </p>
